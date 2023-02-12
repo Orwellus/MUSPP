@@ -1,0 +1,18 @@
+.nav-link {
+    color: #fff;
+    font-weight: 700;
+}
+
+th {
+    color: #fff;
+    font-weight: 700;
+}
+
+td {
+    color: #fff !important;
+    font-weight: 700;
+}
+
+.table__custom {
+    width: 50vw;
+}

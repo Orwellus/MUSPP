@@ -1,0 +1,25 @@
+.panel__wrapper {
+    display: flex;
+}
+
+.panel__subtitle {
+    color: #fff;
+}
+
+.panel__file {
+    align-self: center;
+    padding-left: 16px;
+}
+
+.lkjDVC {
+    border-color: #fff !important;
+    border-style: solid !important;
+}
+
+.dmajdp > span {
+    color: #fff !important;
+}
+
+.lkjDVC > svg > path {
+    fill: #fff !important;
+}
