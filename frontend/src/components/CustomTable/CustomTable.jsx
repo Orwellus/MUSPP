@@ -3,7 +3,8 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import "./CustomTable.css";
 
-function CustomTable() {
+function CustomTable({ list, delUser, addUser }) {
+    console.log(list);
     return (
         <Tabs
             defaultActiveKey="mathematics"
@@ -16,32 +17,34 @@ function CustomTable() {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Grades</th>
+                            <th>Name</th>
+                            <th>Grade</th>
+                            <th>Date</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>5</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>4</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>3</td>
-                        </tr>
+                        {list &&
+                            list.map((item, id) => {
+                                return (
+                                    <tr>
+                                        <td>{id + 1}</td>
+                                        <td>{item.name}</td>
+                                        <td>{item.assessment}</td>
+                                        <td>{item.date}</td>
+                                        <td>
+                                            <button
+                                                onClick={() => delUser(item.id)}
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
                     </tbody>
                 </Table>
+                <button onClick={() => addUser()}>Add Student</button>
             </Tab>
             <Tab eventKey="history" title="History">
                 <Table striped bordered hover className="table">

@@ -1,6 +1,5 @@
 import React from "react";
 import TitleSection from "../../components/TitleSection/TitleSection";
-
 const HomePage = () => {
     return (
         <div>
