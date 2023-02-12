@@ -1,0 +1,23 @@
+.navigation__link-1 {
+    color: #00ff46;
+}
+
+.navigation__link-2 {
+    color: #ac0200;
+}
+
+.navigation__link-3 {
+    color: #7c7ff1;
+}
+
+.navigation__link-1:hover {
+    color: rgba(0, 255, 70, 0.4);
+}
+
+.navigation__link-2:hover {
+    color: rgba(172, 2, 0, 0.4);
+}
+
+.navigation__link-3:hover {
+    color: rgba(124, 127, 241, 0.4);
+}
