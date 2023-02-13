@@ -66,37 +66,6 @@ let db = new sqlite3.Database ( DBSOURCE , (err) => {
             res.json ({"data":row})
             }) ;
     })
-    app.get('/getGradesForUser/:id', (req,res) => {
-        var select = "select * FROM Assessments WHERE name=?"
-        var params = req.params.id;
-        db.get (select , [params] , (err , row) => {
-            if ( err ) {
-                console.log(error)
-                res.status (400).json ({" error ": err.message }) ;
-                return;
-            }
-            console.log(row, err,params)
-            res.json ({"data":row})
-        });
-    })
-    app.post('/saveGrades', (req,res) => {
-        var select = "INSERT INTO Assessments (name , assessment, date ) VALUES (? ,?, ?)"
-       
-        var name = req.body.name || '';
-        var assessment = req.body.assessment || '';
-        var date = req.body.date || '';
-        var params = [assessment,name,date]
-        
-        db.run (select , params , (err , row) => {
-            console.log(err)
-            if (err) {
-                console.log(error)
-                res.status (400).json ({" error ": err.message }) ;
-                return;
-            }
-            console.log(row, err,params)
-            res.json ({"result":"ok"})});
-    })
 
     app.post('/csv',upload.single('file'), (req, res) => {
         let dataTemp = req.file.path;
