@@ -1,6 +1,7 @@
 .wrapper {
     width: 100vw;
-    height: 92.9vh;
+    min-height: 92.9vh;
+    height: 100%;
     text-align: center;
     padding-top: 60px;
     background-image: url("https://cdn.pixabay.com/photo/2014/04/04/14/55/jeans-313305_1280.jpg");
