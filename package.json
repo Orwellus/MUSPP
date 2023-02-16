@@ -1,0 +1,23 @@
+{
+  "name": "nodepythonapp",
+  "version": "1.0.0",
+  "description": "project lab",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "child_process": "^1.0.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "fs": "0.0.1-security",
+    "multer": "^1.4.5-lts.1",
+    "sqlite3": "^5.1.4",
+    "swagger-ui-express": "^4.6.0",
+    "ws": "^8.12.0",
+    "yamljs": "^0.3.0"
+  }
+}
