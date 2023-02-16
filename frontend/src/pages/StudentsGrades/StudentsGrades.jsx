@@ -27,8 +27,8 @@ const StudentsGrades = () => {
             console.error(error);
         }
     }
-    async function addUser() {
-        const body = { name: "lol", assessment: "4.5", date: "2022-04-24" };
+    async function addUser(name, grade, date) {
+        const body = { name, assessment: grade, date };
         try {
             const response = await axios
                 .post("http://localhost:3005/assessment", body, {
