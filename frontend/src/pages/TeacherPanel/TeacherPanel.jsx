@@ -8,6 +8,7 @@ const fileTypes = ["JPEG", "PNG", "GIF", "CSV"];
 
 const TeacherPanel = () => {
     const [file, setFile] = useState(null);
+    const [text, setText] = useState("");
     const handleChange = (files) => {
         if (files.length === 1) {
             setFile(files[files.length - 1]);
@@ -21,16 +22,14 @@ const TeacherPanel = () => {
         formData.append("file", file);
         console.log(formData);
         try {
-            const response = await axios.post(
-                "http://localhost:3005/csv",
-                formData,
-                {
+            const response = await axios
+                .post("http://localhost:3005/api/csv", formData, {
                     headers: {
                         // 'application/json' is the modern content-type for JSON, but some
                         "Content-Type": "multipart/form-data",
                     },
-                }
-            );
+                })
+                .then((response) => setText(response.data));
         } catch (error) {
             console.error(error);
         }
@@ -42,7 +41,7 @@ const TeacherPanel = () => {
 
     return (
         <div className="panel__wrapper">
-            <TextArea />
+            <TextArea text={text} setText={setText} />
             <div className="panel__file">
                 <FileUploader
                     multiple={true}

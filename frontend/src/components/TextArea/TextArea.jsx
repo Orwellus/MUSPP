@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Form from "react-bootstrap/Form";
 import "./TextArea.css";
 
-const TextArea = () => {
-    const [text, setText] = useState("Text");
-
+const TextArea = ({ text, setText }) => {
     return (
         <div>
             <Form.Group

@@ -8,7 +8,7 @@ const StudentsGrades = () => {
     async function getUser() {
         try {
             const response = await axios
-                .get("http://localhost:3005/assessment")
+                .get("http://localhost:3005/api/getAllGrades")
                 .then((response) => {
                     setList(response.data.data);
                 });
@@ -19,7 +19,7 @@ const StudentsGrades = () => {
     async function delUser(id) {
         try {
             const response = await axios
-                .delete("http://localhost:3005/assessment/" + id, id)
+                .delete("http://localhost:3005/api/deleteStudent/" + id, id)
                 .then((response) => {
                     getUser();
                 });
@@ -28,10 +28,10 @@ const StudentsGrades = () => {
         }
     }
     async function addUser(name, grade, date) {
-        const body = { name, assessment: grade, date };
+        const body = { name: name, assessment: grade, date: date };
         try {
             const response = await axios
-                .post("http://localhost:3005/assessment", body, {
+                .post("http://localhost:3005/api/addStudent", body, {
                     headers: {
                         // 'application/json' is the modern content-type for JSON, but some
                         "Content-Type": "application/json",
