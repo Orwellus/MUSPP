@@ -16,7 +16,7 @@ const TextArea = ({ text, setText }) => {
                     as="textarea"
                     rows={10}
                     value={text}
-                    onChange={setText}
+                    onChange= { (e) =>  setText(e.target.value)}
                 />
             </Form.Group>
         </div>

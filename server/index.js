@@ -119,7 +119,7 @@ app.post("/api/csv", upload.single("file"), (req, res) => {
     let dataTemp = __dirname + "\\" + req.file.path;
     let dataToSend = "";
     console.log(req);
-    const python = spawn("python3", ["pythonScriptCsv.py", dataTemp]);
+    const python = spawn("py", ["pythonScriptCsv.py", dataTemp]);
 
     python.stdout.on("data", function (data) {
         var json = JSON.parse(data);
@@ -128,7 +128,7 @@ app.post("/api/csv", upload.single("file"), (req, res) => {
                 "INSERT INTO Assessments (name , assessment, date ) VALUES (? ,?, ?) ";
             db.run(insert, [
                 json[temp]["name"],
-                json[temp]["asessment"],
+                json[temp]["assessment"],
                 json[temp]["date"],
             ]);
         }

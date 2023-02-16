@@ -4,7 +4,7 @@ import TextArea from "../../components/TextArea/TextArea";
 import { FileUploader } from "react-drag-drop-files";
 import "./TeacherPanel.css";
 
-const fileTypes = ["JPEG", "PNG", "GIF", "CSV"];
+const fileTypes = ["JPEG", "PNG", "GIF", "CSV", "JPG"];
 
 const TeacherPanel = () => {
     const [file, setFile] = useState(null);
@@ -23,13 +23,32 @@ const TeacherPanel = () => {
         console.log(formData);
         try {
             const response = await axios
+                .post("http://localhost:3005/api/image", formData, {
+                    headers: {
+                        // 'application/json' is the modern content-type for JSON, but some
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+                
+                .then((response) => {console.log(response);setText(JSON.stringify(response.data))});
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    async function sendCsv() {
+        let formData = new FormData();
+        formData.append("file", file);
+        console.log(formData);
+        try {
+            const response = await axios
                 .post("http://localhost:3005/api/csv", formData, {
                     headers: {
                         // 'application/json' is the modern content-type for JSON, but some
                         "Content-Type": "multipart/form-data",
                     },
                 })
-                .then((response) => setText(response.data));
+                
+                .then((response) => {setText(JSON.stringify(response.data))});
         } catch (error) {
             console.error(error);
         }
@@ -52,7 +71,7 @@ const TeacherPanel = () => {
                 <p className="panel__subtitle">
                     {file ? `File name: ${file.name}` : "no files uploaded yet"}
                 </p>
-                <button onClick={() => sendImg(file)}>Send</button>
+                <button onClick={() =>  file.name.includes('.csv')  ? sendCsv(file): sendImg(file)}>Send</button>
             </div>
         </div>
     );
