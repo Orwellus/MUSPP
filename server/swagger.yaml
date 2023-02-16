@@ -43,7 +43,7 @@ paths:
                     description: Successful response
                     content:
                         application/json: {}
-    /api/assessment:
+    /api/getAllGrades:
         get:
             tags:
                 - default
@@ -53,25 +53,7 @@ paths:
                     description: Successful response
                     content:
                         application/json: {}
-        post:
-            tags:
-                - default
-            summary: insertAssessment
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            example:
-                                name: Rafał
-                                assessment: "4.0"
-                                date: "2024-04-22"
-            responses:
-                "200":
-                    description: Successful response
-                    content:
-                        application/json: {}
-    /api/assessment/{id}:
+    /api/updateStudent/{id}:
         put:
             tags:
                 - default
@@ -97,3 +79,60 @@ paths:
                     description: Successful response
                     content:
                         application/json: {}
+    
+    /api/addStudent:
+        post:
+            tags:
+                - default
+            summary: add student
+            requestBody:
+                content:
+                     application/json:
+                        schema:
+                            type: object
+                            example:
+                                name: Rafał
+                                assessment: "4.0"
+                                date: "2024-04-22"
+            
+            responses:
+                "200":
+                    description: Successful response
+                    content:
+                        application/json: {}
+
+    /api/getAllGrades/{id}:
+        get:
+            tags:
+                - default
+            summary: get Student
+            parameters:
+                - name: id
+                  in: path
+                  schema:
+                      type: integer
+                  required: true
+                  example: "2"
+            responses:
+                "200":
+                    description: Successful response
+                    content:
+                        application/json: {}
+    /api/deleteStudent/{id}:
+        delete:
+            tags:
+                - default
+            summary: delete Student
+            parameters:
+                - name: id
+                  in: path
+                  schema:
+                      type: integer
+                  required: true
+                  example: "2"
+            responses:
+                "200":
+                    description: Successful response
+                    content:
+                        application/json: {}
+        
