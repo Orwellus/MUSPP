@@ -12,10 +12,22 @@ const port = 3005;
 var sqlite3 = require("sqlite3").verbose();
 const DBSOURCE = " db.sqlite ";
 var bodyParser = require("body-parser");
-
+const googleAuth = require("../server/passport/googleAuth")
+const session = require("express-session");
+const passport = require('passport');
 const customCss = fs.readFileSync(process.cwd() + "/swagger.css", "utf8");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(session({
+    secret: 'your-secret-key', // Replace with your own secret key
+    resave: false,
+    saveUninitialized: false
+  }));
+  
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+
 app.use(
     "/api-docs",
     swaggerUi.serve,
@@ -56,7 +68,35 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
         );
     }
 });
+app.get('/auth/google',  passport.authenticate('google', { scope: ['profile'] }),
+function(req, res) {
+    res.redirect('/~' + req.user.username);
+  }
 
+
+
+
+
+);
+app.get(
+    '/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    (req, res) => {
+      // Redirect or respond with a success message
+   //   console.log(res.data.json)
+      res.send('Authentication successful!');
+    }
+  );
+app.get('/logout', function(req, res, next){
+    console.log(req.isAuthenticated());
+    req.logout();
+  });
+
+
+app.get('/isloggedin', (req, res, next) => {
+    if (req.user) res.send(req.user)
+    else res.send({ error: 'error' })
+})
 app.post("/api/image", upload.single("file"), (req, res) => {
     let dataTemp = __dirname + "\\" + req.file.path;
     let dataToSend = "";
