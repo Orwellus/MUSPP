@@ -68,29 +68,24 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
         );
     }
 });
-app.get('/auth/google',  passport.authenticate('google', { scope: ['profile'] }),
-function(req, res) {
-    res.redirect('/~' + req.user.username);
-  }
-
-
-
-
-
+app.get('/auth/google',  passport.authenticate('google', { scope: ['profile'] })
 );
 app.get(
     '/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     (req, res) => {
-      // Redirect or respond with a success message
-   //   console.log(res.data.json)
-      res.send('Authentication successful!');
+
+      res.send('Authentication successfull!');
     }
   );
-app.get('/logout', function(req, res, next){
-    console.log(req.isAuthenticated());
-    req.logout();
-  });
+app.get('/logout', function(req, res) {
+    req.logout(function(err) {
+        if (err) {
+          return next(err);
+        }
+        res.send("Logout successfull !")
+      });
+});
 
 
 app.get('/isloggedin', (req, res, next) => {
