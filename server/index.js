@@ -12,21 +12,22 @@ const port = 3005;
 var sqlite3 = require("sqlite3").verbose();
 const DBSOURCE = " db.sqlite ";
 var bodyParser = require("body-parser");
-const googleAuth = require("../server/passport/googleAuth")
+const googleAuth = require("../server/passport/googleAuth");
 const session = require("express-session");
-const passport = require('passport');
+const passport = require("passport");
 const customCss = fs.readFileSync(process.cwd() + "/swagger.css", "utf8");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(session({
-    secret: 'your-secret-key', // Replace with your own secret key
-    resave: false,
-    saveUninitialized: false
-  }));
-  
-  app.use(passport.initialize());
-  app.use(passport.session());
+app.use(
+    session({
+        secret: "your-secret-key", // Replace with your own secret key
+        resave: false,
+        saveUninitialized: false,
+    })
+);
 
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(
     "/api-docs",
@@ -68,27 +69,29 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
         );
     }
 });
-app.get('/auth/google',  passport.authenticate('google', { scope: ['profile','email'] }),
+app.get(
+    "/auth/google",
+    passport.authenticate("google", { scope: ["profile", "email"] })
 );
-app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/auth/google' }),
-(req, res) => {
-      res.send(req.user);
+app.get(
+    "/auth/google/callback",
+    passport.authenticate("google", { failureRedirect: "/auth/google" }),
+    (req, res) => {
+        res.redirect("http://localhost:3000/grades");
     }
-  );
-app.get('/logout', function(req, res) {
-    req.logOut(function(err) {
+);
+app.get("/logout", function (req, res) {
+    req.logOut(function (err) {
         if (err) {
-          return next(err);
+            return next(err);
         }
-        res.send("Logout successfull !")
-      });
+    });
 });
 
-
-app.get('/isloggedin', (req, res, next) => {
-    if (req.user) res.send(req.user)
-    else res.send({ error: 'error' })
-})
+app.get("/isloggedin", (req, res, next) => {
+    if (req.user) res.send({ authenticate: true, ...req.user });
+    else res.send({ authenticate: false });
+});
 app.post("/api/image", upload.single("file"), (req, res) => {
     let dataTemp = __dirname + "\\" + req.file.path;
     let dataToSend = "";
